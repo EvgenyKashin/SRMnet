@@ -1,3 +1,7 @@
+"""
+SE block from https://github.com/moskomule/senet.pytorch
+"""
+
 import torch
 from torch import nn
 
@@ -21,10 +25,11 @@ class SELayer(nn.Module):
 
 
 class SRMLayer(nn.Module):
-    def __init__(self, channel):
+    def __init__(self, channel, reduction=None):
+        # reduction for compatibility with layer_block interface
         super(SRMLayer, self).__init__()
 
-        # torch.einsum('bck,ck->bc', A, B)
+        # Equal to torch.einsum('bck,ck->bc', A, B)
         self.cfc = nn.Conv1d(channel, channel, kernel_size=2, bias=False,
                              groups=channel)
         self.bn = nn.BatchNorm1d(channel)
