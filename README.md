@@ -8,7 +8,12 @@ An implementation of SRM block, proposed in "SRM : A Style-based Recalibration M
 - back > 0.0.3
 
 ## Implementation notes
-
+For implementing channel-wise fully connected (CFC) layer I used
+Conv1d layer which is equal to CFC with next parameters:
+```python
+Conv1d(channels, channels, kernel_size=2, groups=channels)
+``` 
+It turns out the use of depthwise 1d convolution. 
 ## Training
 ```bash
 python cifar10_train.py --model_name srmnet
@@ -29,9 +34,14 @@ scheduler = MultiStepLR(optimizer, [70, 80], 0.1)
 |weights    |466,906 |470,266(+0.72%)|469,146(+0.48%)|
 
 <img src="imgs/plot.png">
+
 Dark blue - ResNet
 
 Blue - Se-ResNet
 
 Green - SRM-ResNet
 
+[Weights](weights) for best models.
+
+### ImageNet
+You are welcome to pull request!
