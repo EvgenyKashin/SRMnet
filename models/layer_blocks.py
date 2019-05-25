@@ -26,7 +26,7 @@ class SELayer(nn.Module):
 
 class SRMLayer(nn.Module):
     def __init__(self, channel, reduction=None):
-        # reduction for compatibility with layer_block interface
+        # Reduction for compatibility with layer_block interface
         super(SRMLayer, self).__init__()
 
         # Equal to torch.einsum('bck,ck->bc', A, B)
