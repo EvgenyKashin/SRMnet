@@ -1,5 +1,5 @@
 # SRM Network PyTorch
-An implementation of SRM block, proposed in SRM : A Style-based Recalibration Module for Convolutional Neural Networks.
+An implementation of SRM block, proposed in "SRM : A Style-based Recalibration Module for Convolutional Neural Networks".
 
 ## Requirements
 - Python >= 3.6
@@ -10,7 +10,7 @@ An implementation of SRM block, proposed in SRM : A Style-based Recalibration Mo
 ## Implementation notes
 
 ## Training
-```python
+```bash
 python cifar10_train.py --model_name srmnet
 ```
 ### Training parameters
