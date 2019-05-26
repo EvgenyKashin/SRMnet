@@ -7,6 +7,7 @@ An implementation of SRM block, proposed in "SRM : A Style-based Recalibration M
 - torchvision
 - back > 0.0.3
 
+back is PyTorch [backbone](https://github.com/EvgenyKashin/backbone) for training loop.
 ## Implementation notes
 For implementing channel-wise fully connected (CFC) layer I used
 Conv1d layer which is equal to CFC with next parameters:
