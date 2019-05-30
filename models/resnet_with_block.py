@@ -14,11 +14,12 @@ def conv1x1(in_planes, out_planes, stride=1):
 
 
 def basic_block_factory(layer_block=None):
+    # Factory for using torchvision ResNet class
     class BasicBlock(nn.Module):
         expansion = 1
 
         def __init__(self, inplanes, planes, stride=1, downsample=None,
-                     reduction=None):
+                     reduction=16):
             super(BasicBlock, self).__init__()
             self.conv1 = conv3x3(inplanes, planes, stride)
             self.bn1 = nn.BatchNorm2d(planes)
@@ -57,6 +58,7 @@ def basic_block_factory(layer_block=None):
 
 
 def bottleneck_factory(layer_block=None):
+    # Factory for using torchvision ResNet class
     class Bottleneck(nn.Module):
         expansion = 4
 
@@ -135,17 +137,20 @@ class CifarResNetWithBlock(nn.Module):
 
     def _make_layer(self, planes, blocks, stride, reduction):
         downsample = None
-        strides = [stride] + [1] * (blocks - 1)
         layers = []
 
-        for stride in strides:
-            if self.inplanes != planes:
-                downsample = nn.Sequential(conv1x1(self.inplanes, planes,
-                                                   stride=stride),
-                                           nn.BatchNorm2d(planes))
+        if stride != 1 or self.inplanes != planes:
+            downsample = nn.Sequential(conv1x1(self.inplanes, planes,
+                                               stride=stride),
+                                       nn.BatchNorm2d(planes))
 
-            layers.append(self.block(self.inplanes, planes, stride,
-                                     downsample, reduction))
+        layers.append(self.block(self.inplanes, planes, stride, downsample,
+                                 reduction))
+        self.inplanes = planes
+
+        for i in range(1, blocks):
+            layers.append(self.block(self.inplanes, planes,
+                                     reduction=reduction))
             self.inplanes = planes
 
         return nn.Sequential(*layers)
@@ -261,7 +266,6 @@ def cifar_se_resnet32(**kwargs):
 
 
 def cifar_srm_resnet32(**kwargs):
-    model = CifarResNetWithBlock(5, layer_block=SRMLayer, reduction=16,
-                                 **kwargs)
+    model = CifarResNetWithBlock(5, layer_block=SRMLayer, **kwargs)
     return model
 
