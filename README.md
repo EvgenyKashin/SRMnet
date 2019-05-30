@@ -19,8 +19,13 @@ Conv1d(channels, channels, kernel_size=2, groups=channels)
 It turns out the use of depthwise 1d convolution. 
 ## Training
 ```bash
+# Cifar10
 python cifar10_train.py --model_name srmnet
+
+# ImageNet
+python imagenet_train.py --model_name srmnet
 ```
+
 ### Training parameters
 ```python
 batch_size = 128
@@ -47,4 +52,9 @@ Green - SRM-ResNet
 [Weights](weights) for best models.
 
 ### ImageNet
-You are welcome to pull request!
+|           |ResNet50|Se-ResNet50|SRM-ResNe50|
+|:----------|:-------|:----------|:-----------|
+|accuracy(top1)   |%   |%      |%       |
+|weights    |25,557,032 |28,071,976(+9.84%)|25,617,448(+0.23%)|
+
+
