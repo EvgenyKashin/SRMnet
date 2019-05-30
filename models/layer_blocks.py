@@ -29,7 +29,7 @@ class SRMLayer(nn.Module):
         # Reduction for compatibility with layer_block interface
         super(SRMLayer, self).__init__()
 
-        # Equal to torch.einsum('bck,ck->bc', A, B)
+        # CFC: channel-wise fully connected layer
         self.cfc = nn.Conv1d(channel, channel, kernel_size=2, bias=False,
                              groups=channel)
         self.bn = nn.BatchNorm1d(channel)
