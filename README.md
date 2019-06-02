@@ -24,15 +24,28 @@ python cifar10_train.py --model_name srmnet
 
 # ImageNet
 python imagenet_train.py --model_name srmnet
+
+# Logs
+tensorboard --logdir=logs --host=0.0.0.0 --port=8080
+
 ```
 
-### Training parameters
+## Training parameters
+### Cifar
 ```python
 batch_size = 128
 epochs_count = 100
 optimizer = optim.SGD(model.parameters(), lr=0.1, momentum=0.9,
                       weight_decay=1e-4)
 scheduler = MultiStepLR(optimizer, [70, 80], 0.1)
+```
+### ImageNet
+```python
+batch_size = 64
+epochs_count = 100
+optimizer = optim.SGD(model.parameters(), lr=0.1, momentum=0.9,
+                      weight_decay=1e-4)
+scheduler = StepLR(optimizer, 30, 0.1)
 ```
 ## Results
 ### Cifar10

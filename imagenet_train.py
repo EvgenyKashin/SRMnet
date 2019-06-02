@@ -9,9 +9,9 @@ from models.resnet_with_block import resnet50, se_resnet50, srm_resnet50
 data_dir = 'imagenet'
 model_names = ['resnet', 'senet', 'srmnet']
 num_classes = 1000
-batch_size = 32
+batch_size = 64
 epochs_count = 100
-num_workers = 8
+num_workers = 16
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--model_name', required=True, choices=model_names)
